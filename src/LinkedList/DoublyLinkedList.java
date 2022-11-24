@@ -13,7 +13,44 @@ class DLL{
     }
 
     public void insertLast(int val){
+        Node newNode = new Node(val);
+        Node last = head;
+        if (head == null){
+            newNode.prev = null;
+            head = newNode;
+            return;
+        }
+        while (last.next!= null){
+            last = last.next;
+        }
+        last.next = newNode;
+        newNode.prev = last;
+    }
 
+    public void insert(int val, int after){
+        Node newNode = new Node(val);
+        Node p = find(after);
+        if (p ==null){
+            System.out.printf("does not exist");
+            return;
+        }
+        newNode.next = p.next;
+        p.next =newNode;
+        newNode.prev = p;
+        if (newNode.next != null){
+            newNode.next.prev = newNode;
+        }
+    }
+
+    public Node find(int value){
+        Node curr = head;
+        while (curr != null){
+            if (curr.val == value){
+                return curr;
+            }
+            curr = curr.next;
+        }
+        return null;
     }
 
     public void display(){
@@ -58,6 +95,8 @@ public class DoublyLinkedList {
         d.insertFirst(45);
         d.insertFirst(46);
         d.insertFirst(47);
+        d.insertLast(99);
+        d.insert(211,46);
         d.display();
     }
 }

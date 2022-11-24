@@ -150,6 +150,16 @@ class LL{
         }
         return curr;
     }
+    public Node find(int value){
+        Node curr = head;
+        while (curr != null){
+            if (curr.value == value){
+                return curr;
+            }
+            curr = curr.next;
+        }
+        return null;
+    }
 }
 public class LinkedList {
     public static void main(String[] args) {
