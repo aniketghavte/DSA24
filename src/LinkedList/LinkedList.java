@@ -1,18 +1,19 @@
 package LinkedList;
 class LL{
-            private class Node{
 
-                private int value;
-                private Node next;
+        private class Node{
 
-                public Node(int value) { //********* Constructor For Creating a Node
-                    this.value = value;
-                }
-                public Node(int value, Node next) { //********* Constructor For Creating a Node
-                    this.value = value;
-                    this.next = next;
-                }
+            private int value;
+            private Node next;
+
+            public Node(int value) { //********* Constructor For Creating a Node
+                this.value = value;
             }
+            public Node(int value, Node next) { //********* Constructor For Creating a Node
+                this.value = value;
+                this.next = next;
+            }
+        }
 
     private Node head;
     private Node tail;
