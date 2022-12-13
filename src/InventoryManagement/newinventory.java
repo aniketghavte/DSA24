@@ -114,9 +114,9 @@ class Inventory {
     }
 
     public int calculateProfit() {
-        if (quantity == 10){
-            return 0;
-        }
+//        if (quantity == 10){
+//            return 0;
+//        }
 
         return (this.price - this.cost) * this.NoOfItemsSold;
     }
