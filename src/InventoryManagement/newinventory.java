@@ -179,6 +179,36 @@ public class newinventory {
 //                    inventory.calculateProfit();
 //        inventory.showProductsDetails();
 //        System.out.println("******************************************************************************************************************");
+////                        System.out.print("Enter quantity: ");
+//                        int quantity = in.nextInt();
+//                        inventory.shipProduct(id2, quantity);
+//                    }
+//
+//        inventory.showProductsDetails();
+//        System.out.println("******************************************************************************************************************");
+//        // ************Balance stock
+////                    inventory.displayStockInformation();
+//
+//        // *************Loss and Profit calculation
+//
+//                    inventory.calculateProfit();
+//        inventory.showProductsDetails();
+//        System.out.println("******************************************************************************************************************");
+////                        System.out.print("Enter quantity: ");
+//                        int quantity = in.nextInt();
+//                        inventory.shipProduct(id2, quantity);
+//                    }
+//
+//        inventory.showProductsDetails();
+//        System.out.println("******************************************************************************************************************");
+//        // ************Balance stock
+////                    inventory.displayStockInformation();
+//
+//        // *************Loss and Profit calculation
+//
+//                    inventory.calculateProfit();
+//        inventory.showProductsDetails();
+//        System.out.println("******************************************************************************************************************");
 //
 
 
