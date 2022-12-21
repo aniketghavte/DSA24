@@ -202,7 +202,7 @@ public class newinventory {
 //        inventory.showProductsDetails();
 //        System.out.println("******************************************************************************************************************");
 //        // ************Balance stock
-////                    inventory.displayStockInformation();
+//                   inventory.displayStockInformation();
 //
 //        // *************Loss and Profit calculation
 //
