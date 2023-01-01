@@ -96,21 +96,7 @@ class StudentRecords
                 System.err.println("Enter Your Choice \n1. Update Roll Number\n2. Update Name");
                 int c=sc.nextInt();
                 switch(c) {
-                    case  1:
-                        System.out.println("Enter Roll no. to be updated:");
-                        String toUdateR=sc.next();
-                        System.out.println("Enter Updated Roll no.");
-                        String UpdatedR=sc.next();
-                        updateRecord(toUdateR,UpdatedR);
-                        break;
-                    case 2:
-                        System.out.println("Enter Name to be updated:");
-                        String toUdateN=sc.next();
-                        System.out.println("Enter Updated Name:");
-                        String UpdatedN=sc.next();
-                        updateRecord(toUdateN,UpdatedN);
-                        break;
-                    default:
+
 
                 }
 
