@@ -1,32 +1,80 @@
-// Java program to print largest contiguous array sum
+// Java implementation of modified BFS for adjacency matrix
+// representation
+
 import java.io.*;
 import java.util.*;
 
-class Kadane {
-    // Driver Code
-    public static void main(String[] args)
+class GFG {
+    static void addEdge(int[][] edges, int f, int s)
     {
-        int[] a = { -2, -3, 4, -1, -2, 1, 5, -3 };
-        System.out.println("Maximum contiguous sum is "
-                + maxSubArraySum(a));
+        edges[f][s] = 1;
     }
 
-    // Function Call
-    static int maxSubArraySum(int a[])
+    static void printBFS(int[][] edges, int V, int start,
+                         int[] visited)
     {
-        int size = a.length;
-        int max_so_far = Integer.MIN_VALUE, max_ending_here
-                = 0;
-
-        for (int i = 0; i < size; i++) {
-            max_ending_here = max_ending_here + a[i];
-            if (max_so_far < max_ending_here)
-                max_so_far = max_ending_here;
-            if (max_ending_here < 0)
-                max_ending_here = 0;
+        if (V == 0)
+            return;
+        Queue<Integer> BFS = new LinkedList<Integer>();
+        BFS.add(start);
+        visited[start] = 1;
+        while (!BFS.isEmpty()) {
+            int data = BFS.poll();
+            System.out.print(data + " ");
+            for (int i = 0; i < V; i++) {
+                if (edges[data][i] == 1) {
+                    if (visited[i] == 0) {
+                        BFS.add(i);
+                        visited[i] = 1;
+                    }
+                }
+            }
         }
-        return max_so_far;
+    }
+
+    static void bfsHelper(int[][] edges, int V)
+    {
+        if (V == 0)
+            return;
+        int[] visited = new int[V];
+        for (int i = 0; i < V; i++) {
+            visited[i] = 0;
+        }
+        for (int i = 0; i < V; i++) {
+            if (visited[i] == 0) {
+                printBFS(edges, V, i, visited);
+            }
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args)
+    {
+        int V = 5;
+        int E = 6;
+        if (E == 0) {
+            for (int i = 0; i < V; i++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+            System.exit(0);
+        }
+        int[][] edges = new int[V][V];
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                edges[i][j] = 0;
+            }
+        }
+
+        addEdge(edges, 0, 4);
+        addEdge(edges, 1, 2);
+        addEdge(edges, 1, 3);
+        addEdge(edges, 1, 4);
+        addEdge(edges, 2, 3);
+        addEdge(edges, 3, 4);
+
+        bfsHelper(edges, V);
     }
 }
 
-
+// This code is contributed by cavi4762.
