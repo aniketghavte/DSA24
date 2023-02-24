@@ -1,144 +1,144 @@
-package BinaryTree;
-
-/* A program to convert Binary Tree to Binary Search Tree */
+// java code for above approach
+import java.io.*;
 import java.util.*;
 
-public class BST{
+class GFG {
 
-    /* A binary tree node structure */
-    static class Node {
-        int data;
-        Node left;
-        Node right;
-    };
-
-    // index pointer to pointer to the array index
-    static int index;
-
-
-    /* A helper function that stores inorder traversal of a tree rooted
-    with node */
-    static void storeInorder(Node node, int inorder[])
+    // Function to print the parent of each node
+    public static void
+    printParents(int node, Vector<Vector<Integer> > adj,
+                 int parent)
     {
-        // Base Case
-        if (node == null)
-            return;
 
-        /* first store the left subtree */
-        storeInorder(node.left, inorder);
+        // current node is Root, thus, has no parent
+        if (parent == 0)
+            System.out.println(node + "->Root");
+        else
+            System.out.println(node + "->" + parent);
 
-        /* Copy the root's data */
-        inorder[index] = node.data;
-        index++; // increase index for next entry
-
-        /* finally store the right subtree */
-        storeInorder(node.right, inorder);
+        // Using DFS
+        for (int i = 0; i < adj.get(node).size(); i++)
+            if (adj.get(node).get(i) != parent)
+                printParents(adj.get(node).get(i), adj,
+                        node);
     }
 
-    /* A helper function to count nodes in a Binary Tree */
-    static int countNodes(Node root)
+    // Function to print the children of each node
+    public static void
+    printChildren(int Root, Vector<Vector<Integer> > adj)
     {
-        if (root == null)
-            return 0;
-        return countNodes(root.left) + countNodes(root.right) + 1;
+
+        // Queue for the BFS
+        Queue<Integer> q = new LinkedList<>();
+
+        // pushing the root
+        q.add(Root);
+
+        // visit array to keep track of nodes that have been
+        // visited
+        int vis[] = new int[adj.size()];
+
+        Arrays.fill(vis, 0);
+
+        // BFS
+        while (q.size() != 0) {
+            int node = q.peek();
+            q.remove();
+            vis[node] = 1;
+            System.out.print(node + "-> ");
+
+            for (int i = 0; i < adj.get(node).size(); i++) {
+                if (vis[adj.get(node).get(i)] == 0) {
+                    System.out.print(adj.get(node).get(i)
+                            + " ");
+                    q.add(adj.get(node).get(i));
+                }
+            }
+            System.out.println();
+        }
     }
 
-    /* A helper function that copies contents of arr[] to Binary Tree.
-    This function basically does Inorder traversal of Binary Tree and
-    one by one copy arr[] elements to Binary Tree nodes */
-    static void arrayToBST(int[] arr, Node root)
+    // Function to print the leaf nodes
+    public static void
+    printLeafNodes(int Root, Vector<Vector<Integer> > adj)
     {
-        // Base Case
-        if (root == null)
-            return;
 
-        /* first update the left subtree */
-        arrayToBST(arr, root.left);
+        // Leaf nodes have only one edge and are not the
+        // root
+        for (int i = 1; i < adj.size(); i++)
+            if (adj.get(i).size() == 1 && i != Root)
+                System.out.print(i + " ");
 
-        /* Now update root's data and increment index */
-        root.data = arr[index];
-        index++;
-
-        /* finally update the right subtree */
-        arrayToBST(arr, root.right);
+        System.out.println();
     }
 
-    // This function converts a given Binary Tree to BST
-    static void binaryTreeToBST(Node root)
+    // Function to print the degrees of each node
+    public static void
+    printDegrees(int Root, Vector<Vector<Integer> > adj)
     {
-        // base case: tree is empty
-        if (root == null)
-            return;
+        for (int i = 1; i < adj.size(); i++) {
+            System.out.print(i + ": ");
 
-		/* Count the number of nodes in Binary Tree so that
-		we know the size of temporary array to be created */
-        int n = countNodes(root);
-
-        // Create a temp array arr[] and store inorder traversal of tree in arr[]
-        int arr[] = new int[n];
-
-        storeInorder(root, arr);
-
-        // Sort the array using library function for quick sort
-        Arrays.sort(arr);
-
-
-        // Copy array elements back to Binary Tree
-        index = 0;
-        arrayToBST(arr, root);
+            // Root has no parent, thus, its degree is
+            // equal to the edges it is connected to
+            if (i == Root)
+                System.out.println(adj.get(i).size());
+            else
+                System.out.println(adj.get(i).size() - 1);
+        }
     }
 
-    /* Utility function to create a new Binary Tree node */
-    static Node newNode(int data)
+    // Driver code
+    public static void main(String[] args)
     {
-        Node temp = new Node();
-        temp.data = data;
-        temp.left = null;
-        temp.right = null;
-        return temp;
-    }
 
-    /* Utility function to print inorder traversal of Binary Tree */
-    static void printInorder(Node node)
-    {
-        if (node == null)
-            return;
+        // Number of nodes
+        int N = 7, Root = 1;
 
-        /* first recur on left child */
-        printInorder(node.left);
+        // Adjacency list to store the tree
+        Vector<Vector<Integer> > adj
+                = new Vector<Vector<Integer> >();
+        for (int i = 0; i < N + 1; i++) {
+            adj.add(new Vector<Integer>());
+        }
 
-        /* then print the data of node */
-        System.out.print(node.data + " ");
+        // Creating the tree
+        adj.get(1).add(2);
+        adj.get(2).add(1);
 
-        /* now recur on right child */
-        printInorder(node.right);
-    }
+        adj.get(1).add(3);
+        adj.get(3).add(1);
 
-    /* Driver function to test above functions */
-    public static void main(String args[])
-    {
-        Node root = null;
+        adj.get(1).add(4);
+        adj.get(4).add(1);
 
-		/* Constructing tree given in the above figure
-			10
-			/ \
-			30 15
-		/	 \
-		20	 5 */
-        root = newNode(10);
-        root.left = newNode(30);
-        root.right = newNode(15);
-        root.left.left = newNode(20);
-        root.right.right = newNode(5);
+        adj.get(2).add(5);
+        adj.get(5).add(2);
 
-        // convert Binary Tree to BST
-        binaryTreeToBST(root);
+        adj.get(2).add(6);
+        adj.get(6).add(2);
 
-        System.out.println("Following is Inorder Traversal of the converted BST: ");
-        printInorder(root);
+        adj.get(4).add(7);
+        adj.get(7).add(4);
 
+        // Printing the parents of each node
+        System.out.println("The parents of each node are:");
+        printParents(Root, adj, 0);
+
+        // Printing the children of each node
+        System.out.println(
+                "The children of each node are:");
+        printChildren(Root, adj);
+
+        // Printing the leaf nodes in the tree
+        System.out.println(
+                "The leaf nodes of the tree are:");
+        printLeafNodes(Root, adj);
+
+        // Printing the degrees of each node
+        System.out.println("The degrees of each node are:");
+        printDegrees(Root, adj);
     }
 }
 
-// This code is contributed by adityapande88.
-
+// This code is contributed by rj13to.
